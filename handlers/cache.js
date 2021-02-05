@@ -65,7 +65,7 @@ function handleDestroyType(obj_type, object_data) {
 
 function handleSubscribedType(obj_type, object_data, isDelete) {
     switch (obj_type) {
-        
+
         // Inventory item
         case cacheTypeIDs.CSOEconItem:
             this.Logger.debug("Received inventory snapshot");
@@ -91,7 +91,7 @@ function handleSubscribedType(obj_type, object_data, isDelete) {
             break;
         // Lobby invite snapshot.
         case cacheTypeIDs.CSODOTALobbyInvite:
-            var lobbyInvite = Dota2.schema.CSODOTALobbyInvite.decode(object_data[0]);
+            var lobbyInvite = Dota2.schema.CSODOTALobbyInvite.decode([].concat(object_data)[0]);
             this.Logger.debug("Received lobby invite snapshot for group ID " + lobbyInvite.group_id);
             this.emit("lobbyInviteUpdate", lobbyInvite);
             this.LobbyInvite = lobbyInvite;
@@ -105,7 +105,7 @@ function handleSubscribedType(obj_type, object_data, isDelete) {
             break;
         // Party invite snapshot.
         case cacheTypeIDs.CSODOTAPartyInvite:
-            var party = Dota2.schema.CSODOTAPartyInvite.decode(object_data[0]);
+            var party = Dota2.schema.CSODOTAPartyInvite.decode([].concat(object_data)[0]);
             this.Logger.debug("Received party invite snapshot for group ID " + party.group_id);
             this.emit("partyInviteUpdate", party);
             this.PartyInvite = party;
@@ -140,14 +140,14 @@ Dota2.Dota2Client.prototype._handleWelcomeCaches = function handleWelcomeCaches(
  * @param {CSOEconItem[]} inventory - A list of `CSOEconItem` objects
  */
 /**
- * Emitted when you receive an item through a trade. 
+ * Emitted when you receive an item through a trade.
  * Note that the {@link module:Dota2.Dota2Client#Inventory|Inventory} property will be the old value until after this event
  * completes to allow comparison between the two.
  * @event module:Dota2.Dota2Client#gotItem
  * @param {CSOEconItem} item - `CSOEconItem` object describing the received item
  **/
 /**
- * Emitted when you trade away an item. 
+ * Emitted when you trade away an item.
  * Note that the {@link module:Dota2.Dota2Client#Inventory|Inventory} property will be the old value until after this event
  * completes to allow comparison between the two.
  * @event module:Dota2.Dota2Client#gaveItem
@@ -280,7 +280,7 @@ var onCacheDestroy = function onCacheDestroy(message) {
     var _self = this;
 
     this.Logger.debug("Cache destroy, " + single.type_id);
-    
+
     handleDestroyType.call(_self, single.type_id, single.object_data);
 };
 handlers[Dota2.schema.ESOMsg.k_ESOMsg_Destroy] = onCacheDestroy;
