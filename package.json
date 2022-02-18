@@ -6,7 +6,7 @@
     "long": "^4.0.0",
     "merge": "^1.2.1",
     "steam": "^1.4.1",
-    "steam-resources": "https://github.com/Firstbloodio/node-steam-resources.git",
+    "steam-resources": "https://github.com/Firstbloodio/node-steam-resources.git#v1.3.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
